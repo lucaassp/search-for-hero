@@ -1,1 +1,1 @@
-# search-for-hero
+# O Wikimarvel é um site que visa fornecer informações sobre o universo Marvel incluindo personagens, quadrinhos, filmes e series de TV. O site será uma plataforma interativa onde os usuarios poderão criar e editar conteúdo relacionado ao universo Marvel.
