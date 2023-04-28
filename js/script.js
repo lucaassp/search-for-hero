@@ -21,17 +21,16 @@ window.addEventListener('load', () => {
             heroList.innerHTML = '';
             heroThumbnail.innerHTML = '';
             results.forEach(hero => {
-                const heroDiv = document.createElement('div');
+                const heroDiv = document.createElement('ul');
                 heroDiv.classList.add('hero');
                 const heroName = document.createElement('li');
                 heroName.textContent = hero.name;
+                heroName.addEventListener('mouseover', () => {
+                    if (hero.thumbnail) {
+                        heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}">`;
+                    }
+                });
                 heroDiv.appendChild(heroName);
-                if (hero.thumbnail) {
-                    const heroImg = document.createElement('img');
-                    heroImg.src = `${hero.thumbnail.path}.${hero.thumbnail.extension}`;
-                    heroThumbnail.innerHTML = '';
-                    heroThumbnail.appendChild(heroImg);
-                }
                 heroList.appendChild(heroDiv);
             });
         })
