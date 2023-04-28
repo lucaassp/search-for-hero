@@ -32,6 +32,11 @@ window.addEventListener('load', () => {
                 });
                 heroDiv.appendChild(heroName);
                 heroList.appendChild(heroDiv);
+
+                // Adiciona a thumbnail correspondente na div ao carregar a página
+                if (hero.thumbnail) {
+                    heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}">`;
+                }
             });
         })
         .catch(error => {
