@@ -43,31 +43,29 @@ window.addEventListener('load', async () => {
     }
 
     function displayHeroData(heroData) {
-    heroInfo.innerHTML = '';
-
-    heroData.forEach((hero) => {
-        const heroEl = document.createElement('div');
-        heroEl.classList.add('hero');
-        heroEl.innerHTML =
-
-        `<div class="hero-details">
-            <h3 class="hero-name">${hero.name}</h3>
-            <p class="hero-description">${hero.description || 'No description available.'}</p>
-        </div>
-        `;
+        heroInfo.innerHTML = '';
         heroThumbnail.innerHTML = '';
+        heroData.forEach((hero) => {
+            const heroDiv = document.createElement('div');
+            heroDiv.classList.add('hero');
+            heroDiv.innerHTML = 
+            `<div class="hero-details">
+                <h3 class="hero-name">${hero.name}</h3>
+                <p class="hero-description">${hero.description || 'No description available.'}</p>
+            </div>`;
+            
 
-        heroInfo.appendChild(heroEl);
-        if (hero.thumbnail) {
-            heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}">`;
-        }
-    });
-    }
+            heroInfo.appendChild(heroDiv);
 
-    function thumbnail(thumbnail) {
-        thumbnail.forEach(t => {
-
-        })
+            if (hero.thumbnail) {
+                const imgPath = `${hero.thumbnail.path}.${hero.thumbnail.extension}`;
+                const img = new Image();
+                img.src = imgPath;
+                heroDiv.addEventListener('mouseover', () => {
+                    heroThumbnail.innerHTML = '';
+                    heroThumbnail.appendChild(img);
+                });
+            }
+        });
     }
 });
-
