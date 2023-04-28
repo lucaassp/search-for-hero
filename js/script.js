@@ -43,25 +43,25 @@ window.addEventListener('load', async () => {
     }
 
     function displayHeroData(heroData) {
-    heroInfo.innerHTML = '';
-    heroThumbnail.innerHTML = '';
-    heroData.forEach((hero) => {
-        const heroDiv = document.createElement('div');
-        heroDiv.classList.add('hero');
-        heroDiv.innerHTML = 
-        `<div class="hero-details">
+        heroInfo.innerHTML = '';
+        heroThumbnail.innerHTML = '';
+        heroData.forEach((hero) => {
+            const heroDiv = document.createElement('div');
+            heroDiv.classList.add('hero');
+            heroDiv.innerHTML = 
+            `<div class="hero-details">
             <h3 class="hero-name">${hero.name}</h3>
             <p class="hero-description">${hero.description || 'No description available.'}</p>
-        </div>`;
-        
+            </div>`;
+            heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" id="thumbnail-id">`;
 
-        heroInfo.appendChild(heroDiv);
+            heroDiv.addEventListener('mouseover', () => {
+            if (hero.thumbnail) {
+                heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" id="thumbnail-id">`;
+            }
+            });
 
-
-        
-        if (hero.thumbnail) {
-            heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}">`;
-        }
-    });
+            heroInfo.appendChild(heroDiv);
+        });
     }
 });
