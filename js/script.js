@@ -2,6 +2,9 @@ const searchForm = document.getElementById('search-form-id');
 const searchInput = document.getElementById('search-input');
 const heroInfo = document.getElementById('hero-info');
 const heroThumbnail = document.getElementById('content-thumbnail');
+const characterButton = document.getElementById('charactersButton');
+const comicsButton = document.getElementById('comicsButton');
+ 
 
 window.addEventListener('load', async () => {
   
@@ -16,6 +19,8 @@ window.addEventListener('load', async () => {
         e.preventDefault();
         await fetchMarvelCharacters();
     });
+
+    
     
 
     async function fetchMarvelCharacters() {
@@ -23,29 +28,44 @@ window.addEventListener('load', async () => {
         const apiKey = 'd28ef029a68ad984b5e2be6fa65b6512';
         const md5 = '051c2c5faf0162b6e3b25682a3af5a58';
         const searchTerm = searchInput.value;
-        const url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${searchTerm}&ts=${timeStamp}&apikey=${apiKey}&hash=${md5}`;
 
-        const response = await fetch(url);
-        const data = await response.json();
-
-        const { results: heroes } = data.data;
-
-        const heroData = heroes.map(({ name, description, thumbnail, comics, series, stories }) => ({
+        // Busca de personagens
+        const characterUrl = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${searchTerm}&ts=${timeStamp}&apikey=${apiKey}&hash=${md5}`;
+        const characterResponse = await fetch(characterUrl);
+        const characterData = await characterResponse.json();
+        
+        const characters = characterData.data.results;
+        
+        const charactersData = characters.map(({ name, description, thumbnail }) => ({
             name,
             description,
             thumbnail,
-            comics,
-            series,
-            stories,
         }));
 
-        displayHeroData(heroData);
+        const comicsUrl = `https://gateway.marvel.com/v1/public/comics?titleStartsWith=${searchTerm}&ts=${timeStamp}&apikey=${apiKey}&hash=${md5}`;
+        const comicsResponse = await fetch(comicsUrl);
+        const comicData = await comicsResponse.json();
+
+        const comics = comicData.data.results;
+        
+        const comicsData = comics.map(({ title, description, thumbnail })=> ({
+            title,
+            description,
+            thumbnail,
+          }));
+
+
+        showCharacters(charactersData);
+        
+        comicsButton.addEventListener('click', () => {
+            showComics(comicsData);
+          });
     }
 
-    function displayHeroData(heroData) {
+    function showCharacters(characters) {
         heroInfo.innerHTML = '';
         heroThumbnail.innerHTML = '';
-        heroData.forEach((hero) => {
+        characters.forEach((hero) => {
             const heroDiv = document.createElement('div');
             heroDiv.classList.add('hero');
             heroDiv.innerHTML = 
@@ -64,4 +84,28 @@ window.addEventListener('load', async () => {
             heroInfo.appendChild(heroDiv);
         });
     }
+
+
+    function showComics(comics) {
+        heroInfo.innerHTML = '';
+        comics.forEach(comic => {
+            const comicDiv = document.createElement('div');
+            comicDiv.classList.add('hero');
+            comicDiv.innerHTML = 
+            `<div class="comic">
+              <h3>${comic.title}</h3>
+              <p>${comic.description || "No description available."}</p>
+            </div>`
+            heroThumbnail.innerHTML = `<img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}"></img>`;
+            
+            comicDiv.addEventListener('mouseover', () => {
+                if (comic.thumbnail) {
+                    heroThumbnail.innerHTML = `<img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}"></img>`;
+                }
+            });
+    
+            heroInfo.appendChild(comicDiv);
+        })
+      }
+    
 });
