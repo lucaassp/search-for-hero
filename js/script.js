@@ -20,9 +20,6 @@ window.addEventListener('load', async () => {
         await fetchMarvelCharacters();
     });
 
-    
-    
-
     async function fetchMarvelCharacters() {
         const timeStamp = '1';
         const apiKey = 'd28ef029a68ad984b5e2be6fa65b6512';
@@ -56,6 +53,10 @@ window.addEventListener('load', async () => {
 
 
         showCharacters(charactersData);
+
+        characterButton.addEventListener('click', () => {
+            showCharacters(charactersData);
+          });
         
         comicsButton.addEventListener('click', () => {
             showComics(comicsData);
