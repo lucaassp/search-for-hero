@@ -4,12 +4,10 @@ const heroInfo = document.getElementById('hero-info');
 const heroThumbnail = document.getElementById('content-thumbnail');
 const characterButton = document.getElementById('charactersButton');
 const comicsButton = document.getElementById('comicsButton');
-const storiesButton = document.getElementById('storiesButton')
 const seriesButton = document.getElementById('seriesButton')
  
 
 window.addEventListener('load', async () => {
-  
     searchInput.addEventListener('keyup', async (e) => {
         e.preventDefault();
         if (e === 'Enter') {
@@ -28,7 +26,6 @@ window.addEventListener('load', async () => {
         const md5 = '051c2c5faf0162b6e3b25682a3af5a58';
         const searchTerm = searchInput.value;
 
-        // Busca de personagens
         const characterUrl = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${searchTerm}&ts=${timeStamp}&apikey=${apiKey}&hash=${md5}`;
         const characterResponse = await fetch(characterUrl);
         const characterData = await characterResponse.json();
@@ -57,24 +54,6 @@ window.addEventListener('load', async () => {
             creators
           }));
 
-        const storiesUrl = `http://gateway.marvel.com/v1/public/stories?apikey=${apiKey}&ts=${timeStamp}&hash=${md5}`
-        const storiesResponse = await fetch(storiesUrl);
-        const storieData = await storiesResponse.json();
-
-        const stories = storieData.data.results;
-
-        const storiesData = stories.map(({title, description, thumbnail, characters, creators, originalissue, events }) => ({
-    
-            title,
-            description,
-            thumbnail, 
-            characters, 
-            creators, 
-            originalissue, 
-            events,
-        
-          }));
-
         const seriesUrl = `http://gateway.marvel.com/v1/public/series?apikey=${apiKey}&ts=${timeStamp}&hash=${md5}`
         const seriesResponse = await fetch(seriesUrl);
         const serieData = await seriesResponse.json();
@@ -101,10 +80,6 @@ window.addEventListener('load', async () => {
         comicsButton.addEventListener('click', () => {
             showComics(comicsData);
           });
-
-        storiesButton.addEventListener('click', () => {
-            showStories(storiesData)
-        })
 
         seriesButton.addEventListener('click', () => {
           showSeries(seriesData)
@@ -208,6 +183,5 @@ window.addEventListener('load', async () => {
             serieDiv.appendChild(creatorsDiv);
           }
         });
-      }
-    
+      }  
 });
