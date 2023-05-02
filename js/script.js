@@ -35,7 +35,7 @@ window.addEventListener('load', async () => {
         
         const characters = characterData.data.results;
         
-        const charactersData = characters.map(({ name, description, thumbnail, comics, series, stories, }) => ({
+        const charactersData = characters.map(({ name, description, thumbnail, comics, series, stories }) => ({
             name,
             description,
             thumbnail,
@@ -50,10 +50,11 @@ window.addEventListener('load', async () => {
 
         const comics = comicData.data.results;
         
-        const comicsData = comics.map(({ title, description, thumbnail })=> ({
+        const comicsData = comics.map(({ title, description, thumbnail, creators })=> ({
             title,
             description,
             thumbnail,
+            creators
           }));
 
         const storiesUrl = `http://gateway.marvel.com/v1/public/stories?apikey=${apiKey}&ts=${timeStamp}&hash=${md5}`
@@ -131,33 +132,47 @@ window.addEventListener('load', async () => {
                 heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" id="thumbnail-id">`;
             }
             });
-
             heroInfo.appendChild(heroDiv);
         });
     }
 
 
     function showComics(comics) {
-        heroInfo.innerHTML = '';
-        comics.forEach(comic => {
-            const comicDiv = document.createElement('div');
-            comicDiv.classList.add('hero');
-            comicDiv.innerHTML = 
-            `<div class="comic">
-              <h3>${comic.title}</h3>
-              <p>${comic.description || "No description available."}</p>
-            </div>`
-            heroThumbnail.innerHTML = `<img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}"></img>`;
-            
-            comicDiv.addEventListener('mouseover', () => {
-                if (comic.thumbnail) {
-                    heroThumbnail.innerHTML = `<img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}"></img>`;
-                }
-            });
-            
-            heroInfo.appendChild(comicDiv);
-        })
-      }
+      heroInfo.innerHTML = '';
+      comics.forEach(comic => {
+          const comicDiv = document.createElement('div');
+          comicDiv.classList.add('hero');
+          comicDiv.innerHTML = `
+              <div class="comic">
+                  <h3>${comic.title}</h3>
+                  <p>${comic.description || "No description available."}</p>
+                  <div class="serie-creators">${comic.creators.available} Creators</div>
+              </div>`
+          heroThumbnail.innerHTML = `<img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}"></img>`;
+  
+          comicDiv.addEventListener('mouseover', () => {
+              if (comic.thumbnail) {
+                  heroThumbnail.innerHTML = `<img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}"></img>`;
+              }
+          });
+  
+          heroInfo.appendChild(comicDiv);
+  
+          if (comic.creators && comic.creators.items.length > 0) {
+              const creatorsDiv = document.createElement('div');
+              creatorsDiv.classList.add('comic-creators');
+              let creatorsHtml = '<h4>Creators</h4><ul>';
+  
+              comic.creators.items.forEach((creator) => {
+                  creatorsHtml += `<li>${creator.name} (${creator.role})</li>`;
+              });
+  
+              creatorsHtml += '</ul>';
+              creatorsDiv.innerHTML = creatorsHtml;
+              comicDiv.appendChild(creatorsDiv);
+          }
+      });
+  }
 
       function showSeries(series) {
         heroInfo.innerHTML = '';
@@ -169,9 +184,6 @@ window.addEventListener('load', async () => {
               <h3 class="serie-title">${serie.title}</h3>
               <p class="serie-description">${serie.description || 'No description available.'}</p>
               <h5 class="serie-beginning-end">Year of creation ${serie.startYear} - End  ${serie.endYear}</h5>
-              <div class="serie-creators">${serie.creators.available} Creators</div>
-          
-        
             </div>`;
             if (serie.thumbnail && serie.thumbnail.path) {
               heroThumbnail.innerHTML = `<img src="${serie.thumbnail.path}.${serie.thumbnail.extension}" id="thumbnail-id">`;
@@ -182,6 +194,20 @@ window.addEventListener('load', async () => {
             }
           });
           heroInfo.appendChild(serieDiv);
+
+          if (serie.creators && serie.creators.items.length > 0) {
+            const creatorsDiv = document.createElement('div');
+            creatorsDiv.classList.add('serie-creators');
+            let creatorsHtml = '<h4>Creators</h4><ul>';
+      
+            serie.creators.items.forEach((creator) => {
+              creatorsHtml += `<li>${creator.name} (${creator.role})</li>`;
+            });
+      
+            creatorsHtml += '</ul>';
+            creatorsDiv.innerHTML = creatorsHtml;
+            serieDiv.appendChild(creatorsDiv);
+          }
         });
       }
     
