@@ -4,6 +4,8 @@ const heroInfo = document.getElementById('hero-info');
 const heroThumbnail = document.getElementById('content-thumbnail');
 const characterButton = document.getElementById('charactersButton');
 const comicsButton = document.getElementById('comicsButton');
+const storiesButton = document.getElementById('storiesButton')
+const seriesButton = document.getElementById('seriesButton')
  
 
 window.addEventListener('load', async () => {
@@ -33,10 +35,13 @@ window.addEventListener('load', async () => {
         
         const characters = characterData.data.results;
         
-        const charactersData = characters.map(({ name, description, thumbnail }) => ({
+        const charactersData = characters.map(({ name, description, thumbnail, comics, series, stories, }) => ({
             name,
             description,
             thumbnail,
+            comics,
+            series,
+            stories,
         }));
 
         const comicsUrl = `https://gateway.marvel.com/v1/public/comics?titleStartsWith=${searchTerm}&ts=${timeStamp}&apikey=${apiKey}&hash=${md5}`;
@@ -51,6 +56,40 @@ window.addEventListener('load', async () => {
             thumbnail,
           }));
 
+        const storiesUrl = `http://gateway.marvel.com/v1/public/stories?apikey=${apiKey}&ts=${timeStamp}&hash=${md5}`
+        const storiesResponse = await fetch(storiesUrl);
+        const storieData = await storiesResponse.json();
+
+        const stories = storieData.data.results;
+
+        const storiesData = stories.map(({title, description, thumbnail, characters, creators, originalissue, events }) => ({
+    
+            title,
+            description,
+            thumbnail, 
+            characters, 
+            creators, 
+            originalissue, 
+            events,
+        
+          }));
+
+        const seriesUrl = `http://gateway.marvel.com/v1/public/series?apikey=${apiKey}&ts=${timeStamp}&hash=${md5}`
+        const seriesResponse = await fetch(seriesUrl);
+        const serieData = await seriesResponse.json();
+
+        const series = serieData.data.results;
+
+        const seriesData = series.map(({ title, description, startYear, endYear, modified, creators, next }) => ({
+            title, 
+            description, 
+            startYear, 
+            endYear, 
+            modified, 
+            creators, 
+            next
+          
+        }));  
 
         showCharacters(charactersData);
 
@@ -61,6 +100,14 @@ window.addEventListener('load', async () => {
         comicsButton.addEventListener('click', () => {
             showComics(comicsData);
           });
+
+        storiesButton.addEventListener('click', () => {
+            showStories(storiesData)
+        })
+
+        seriesButton.addEventListener('click', () => {
+          showSeries(seriesData)
+        })
     }
 
     function showCharacters(characters) {
@@ -73,6 +120,9 @@ window.addEventListener('load', async () => {
             `<div class="hero-details">
             <h3 class="hero-name">${hero.name}</h3>
             <p class="hero-description">${hero.description || 'No description available.'}</p>
+            <div class="hero-comics">${hero.comics.available || 'There is no Comics'} comics</div>
+            <div class="hero-series">${hero.series.available || 'There is no Series'} series</div>
+            <div class="hero-stories">${hero.stories.available || 'There is no Stories'} stories</div>
             </div>`;
             heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" id="thumbnail-id">`;
 
@@ -104,9 +154,35 @@ window.addEventListener('load', async () => {
                     heroThumbnail.innerHTML = `<img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}"></img>`;
                 }
             });
-    
+            
             heroInfo.appendChild(comicDiv);
         })
+      }
+
+      function showSeries(series) {
+        heroInfo.innerHTML = '';
+        series.forEach((serie) => {
+          const serieDiv = document.createElement('div'); 
+          serieDiv.classList.add('serie');
+          serieDiv.innerHTML = `
+            <div class="serie-details">
+              <h3 class="serie-title">${serie.title}</h3>
+              <p class="serie-description">${serie.description || 'No description available.'}</p>
+              <h5 class="serie-beginning-end">Year of creation ${serie.startYear} - End  ${serie.endYear}</h5>
+              <div class="serie-creators">${serie.creators.available} Creators</div>
+          
+        
+            </div>`;
+            if (serie.thumbnail && serie.thumbnail.path) {
+              heroThumbnail.innerHTML = `<img src="${serie.thumbnail.path}.${serie.thumbnail.extension}" id="thumbnail-id">`;
+            }
+            serieDiv.addEventListener('mouseover', () => {
+            if (serie.thumbnail && serie.thumbnail.path) {
+                heroThumbnail.innerHTML = `<img src="${serie.thumbnail.path}.${serie.thumbnail.extension}" id="thumbnail-id">`;
+            }
+          });
+          heroInfo.appendChild(serieDiv);
+        });
       }
     
 });
