@@ -146,7 +146,6 @@ window.addEventListener('load', async () => {
               <div class="comic">
                   <h3>${comic.title}</h3>
                   <p>${comic.description || "No description available."}</p>
-                  <div class="serie-creators">${comic.creators.available} Creators</div>
               </div>`
           heroThumbnail.innerHTML = `<img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}"></img>`;
   
