@@ -95,9 +95,7 @@ window.addEventListener('load', async () => {
             `<div class="hero-details">
             <h3 class="hero-name">${hero.name}</h3>
             <p class="hero-description">${hero.description || 'No description available.'}</p>
-            <div class="hero-comics">${hero.comics.available || 'There is no Comics'} comics</div>
-            <div class="hero-series">${hero.series.available || 'There is no Series'} series</div>
-            <div class="hero-stories">${hero.stories.available || 'There is no Stories'} stories</div>
+            <h5 class="hero-comics">${hero.comics.available || 'There is no Comics'} comics | ${hero.series.available || 'There is no Series'} series | ${hero.stories.available || 'There is no Stories'} stories</h5>
             </div>`;
             heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" id="thumbnail-id">`;
 
@@ -171,7 +169,7 @@ window.addEventListener('load', async () => {
           if (serie.creators && serie.creators.items.length > 0) {
             const creatorsDiv = document.createElement('div');
             creatorsDiv.classList.add('serie-creators');
-            let creatorsHtml = '<h4>Creators</h4><ul>';
+            let creatorsHtml = '<h4>Creators:</h4><ul>';
       
             serie.creators.items.forEach((creator) => {
               creatorsHtml += `<li>${creator.name} (${creator.role})</li>`;

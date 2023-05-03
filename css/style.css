@@ -59,6 +59,19 @@ img{
     display: block;
 }  
 
+h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #13ea1a;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.5px;
+    background-color: #242424;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
 .main-content{
     max-width: 1280px;
     width: 100%;
@@ -97,8 +110,11 @@ img{
     font-size: 2rem;
     font-weight: bold;
     background-image: linear-gradient(to right, white, red);
+    color: transparent;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -o-background-clip: text;
+    background-clip: text;
   }
 
 .app-header-search{
@@ -133,13 +149,10 @@ img{
 /* app body tabs heads */
 .app-body-tabs-head{
     display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     justify-content: space-between;
     border-bottom: 2px solid rgb(34, 243, 10);
     border-radius: 2px;
