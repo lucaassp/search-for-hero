@@ -8,6 +8,7 @@ const seriesButton = document.getElementById('seriesButton')
  
 
 window.addEventListener('load', async () => {
+
     searchInput.addEventListener('keyup', async (e) => {
         e.preventDefault();
         if (e === 'Enter') {
@@ -60,15 +61,13 @@ window.addEventListener('load', async () => {
 
         const series = serieData.data.results;
 
-        const seriesData = series.map(({ title, description, startYear, endYear, modified, creators, next }) => ({
+        const seriesData = series.map(({ title, description, startYear, endYear, modified, creators }) => ({
             title, 
             description, 
             startYear, 
             endYear, 
             modified, 
             creators, 
-            next
-          
         }));  
 
         showCharacters(charactersData);
