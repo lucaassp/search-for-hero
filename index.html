@@ -1,63 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.ico">
     <title>Wiki For Hero</title>
-    <link rel = "stylesheet" href = "/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <div class="main-content">
         <div class="app">
             <!-- app header -->
-            <div class = "app-header">
-                <h2 class = "app-header-title">Wiki<span>Marvel.</span></h2>
-                <form class = "app-header-search" id="search-form-id">
-                    <input type = "text" class = "form-control" placeholder="Search your superhero here ..." name = "search" id="search-input">
-                    <button type = "submit" class = "search-btn" id="search-form">
-                        <i class = "fas fa-search"></i>
+            <div class="app-header">
+                <h2 class="app-header-title">Wiki<span>Marvel.</span></h2>
+                <form class="app-header-search" id="search-form-id">
+                    <input type="text" class="form-control" placeholder="Search your superhero here ..." name="search"
+                        id="search-input">
+                    <button type="submit" class="search-btn" id="search-form">
+                        <i class="fas fa-search"></i>
                     </button>
-                    <div class = "search-list" id = "search-list">
+                    <div class="search-list" id="search-list">
                     </div>
                 </form>
             </div>
             <!-- end of app header -->
 
-            <div class = "app-body">
-                <div class = "app-body-content">
+            <div class="app-body">
+                <div class="app-body-content">
                     <!-- app body thumbnail -->
-                    <div class = "app-body-content-thumbnail" id="content-thumbnail">
-                        <img src = "img/marvel-thor.png" id="thumbanail-id">
+                    <div class="app-body-content-thumbnail" id="content-thumbnail">
+                        <img src="img/marvel-thor.png" id="thumbanail-id">
                     </div>
                     <!-- end of app body thumbnail -->
-                    
-                    <div class = "app-body-content-list">
+
+                    <div class="app-body-content-list">
 
                         <!-- tabs head -->
-                        <div class = "app-body-tabs-head">
-                            <button type = "button" class = "tab-head-single" data-id = "1" id="charactersButton">
+                        <div class="app-body-tabs-head">
+                            <button type="button" class="tab-head-single" data-id="1" id="charactersButton">
                                 <span>Character</span>
                             </button>
-                            <button type = "button" class = "tab-head-single" data-id = "2" id="comicsButton">
+                            <button type="button" class="tab-head-single" data-id="2" id="comicsButton">
                                 <span>Comics</span>
                             </button>
-                            <button type = "button" class = "tab-head-single" data-id = "4" id="seriesButton">
+                            <button type="button" class="tab-head-single" data-id="4" id="seriesButton">
                                 <span>Series</span>
+                            </button>
+                            <button type="button" class="tab-head-single" data-id="4" id="seriesButton">
+                                <span>Favorites</span>
                             </button>
                         </div>
                         <!-- end of tabs head -->
                         <div id="hero-info"></div>
-                        </div>
-                        <!-- end of tabs body -->
                     </div>
+                    <!-- end of tabs body -->
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
+
 </html>
