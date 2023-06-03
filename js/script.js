@@ -4,7 +4,9 @@ const heroInfo = document.getElementById('hero-info');
 const heroThumbnail = document.getElementById('content-thumbnail');
 const characterButton = document.getElementById('charactersButton');
 const comicsButton = document.getElementById('comicsButton');
-const seriesButton = document.getElementById('seriesButton')
+const seriesButton = document.getElementById('seriesButton') 
+const favoritesButton = document.getElementById('favoritesButton')
+
  
 
 window.addEventListener('load', async () => {
