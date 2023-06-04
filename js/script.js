@@ -95,7 +95,7 @@ window.addEventListener('load', async () => {
             heroDiv.classList.add('hero');
             heroDiv.innerHTML = 
             `<div class="hero-details">
-            <h3 class="hero-name">${hero.name}<i class="fa-solid fa-plus icon"></h3>
+            <h3 class="hero-name">${hero.name}<i class="fa-solid fa-plus icon"></i></h3>
             <p class="hero-description">${hero.description || 'No description available.'}</p>
             <h5 class="hero-comics">${hero.comics.available || 'There is no Comics'} comics | ${hero.series.available || 'There is no Series'} series | ${hero.stories.available || 'There is no Stories'} stories</h5>
             </div>`;

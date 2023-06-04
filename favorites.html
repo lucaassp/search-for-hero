@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico">
     <title>Favorite Heroes</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
-    <h1>Favorite Heroes</h1>
-    <div id="favorites"></div>
-
+    <div class="main-content-favorites">
+      <div class="app">
+        <div class="app-header-favorites">
+          <h2>Favorite Heroes</h2>
+        </div>
+        <div class="app-body-favorites" id="favorites">
+          <!-- Os cards de heróis favoritos serão adicionados dinamicamente aqui -->
+        </div>
+      </div>
+    </div>
     <script src="/js/favorites.js"></script>
   </body>
 </html>
