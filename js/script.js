@@ -95,7 +95,7 @@ window.addEventListener('load', async () => {
             heroDiv.classList.add('hero');
             heroDiv.innerHTML = 
             `<div class="hero-details">
-            <h3 class="hero-name">${hero.name}</h3>
+            <h3 class="hero-name">${hero.name}<i class="fa-solid fa-plus icon"></h3>
             <p class="hero-description">${hero.description || 'No description available.'}</p>
             <h5 class="hero-comics">${hero.comics.available || 'There is no Comics'} comics | ${hero.series.available || 'There is no Series'} series | ${hero.stories.available || 'There is no Stories'} stories</h5>
             </div>`;
@@ -106,8 +106,47 @@ window.addEventListener('load', async () => {
                 heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" id="thumbnail-id">`;
             }
             });
+
+
+            const addButton = heroDiv.querySelector('.fa-plus.icon');
+            addButton.addEventListener('click', () => {
+              if (isHeroFavorite(hero)) {
+                alert('This hero is already in favorites.');
+              } else {
+                addHeroToFavorites(hero);
+                alert('Hero added to favorites.');
+              }
+            });
+
+            heroDiv.addEventListener('mouseover', () => {
+              if (hero.thumbnail) {
+                heroThumbnail.innerHTML = `<img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" id="thumbnail-id">`;
+              }
+            });
+
             heroInfo.appendChild(heroDiv);
         });
+    }
+
+    function isHeroFavorite(hero) {
+      const favorites = getFavoritesFromStorage();
+      return favorites.some((favorite) => favorite.name === hero.name);
+    }
+  
+    function addHeroToFavorites(hero) {
+      const favorites = getFavoritesFromStorage();
+      favorites.push(hero);
+      saveFavoritesToStorage(favorites);
+    }
+  
+    function getFavoritesFromStorage() {
+      const favoritesJSON = localStorage.getItem('favorites');
+      return favoritesJSON ? JSON.parse(favoritesJSON) : [];
+    }
+  
+    function saveFavoritesToStorage(favorites) {
+      const favoritesJSON = JSON.stringify(favorites);
+      localStorage.setItem('favorites', favoritesJSON);
     }
 
 
