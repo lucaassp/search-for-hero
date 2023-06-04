@@ -2,10 +2,15 @@ window.addEventListener('load', () => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   
     const favoritesContainer = document.getElementById('favorites');
-    favorites.forEach((hero) => {
+    favorites.forEach((hero, index) => {
+      const heroCard = createHeroCard(hero, index);
+      favoritesContainer.appendChild(heroCard);
+    });
+  
+    function createHeroCard(hero, index) {
       const heroCard = document.createElement('div');
       heroCard.classList.add('hero-card');
-      heroCard.id = `hero-${hero.id}`;
+      heroCard.id = `hero-${index}`;
   
       const heroImage = document.createElement('img');
       heroImage.src = `${hero.thumbnail.path}.${hero.thumbnail.extension}`;
@@ -19,8 +24,10 @@ window.addEventListener('load', () => {
       const removeIcon = document.createElement('i');
       removeIcon.classList.add('fa-solid', 'fa-minus');
       removeIcon.style.marginLeft = '5px';
+      removeIcon.dataset.heroIndex = index; // Armazena o índice do herói no atributo personalizado
+  
       removeIcon.addEventListener('click', () => {
-        removeFavorite(hero);
+        handleRemoveFavorite(index);
       });
   
       heroName.appendChild(removeIcon);
@@ -28,15 +35,25 @@ window.addEventListener('load', () => {
       heroCard.appendChild(heroImage);
       heroCard.appendChild(heroName);
   
-      favoritesContainer.appendChild(heroCard);
-    });
+      return heroCard;
+    }
   
-    function removeFavorite(hero) {
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        const updatedFavorites = favorites.filter((favorite) => favorite.id !== hero.id);
-        localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-        const heroCard = document.getElementById(`hero-${hero.id}`);
+    function handleRemoveFavorite(index) {
+      removeFavoriteFromLocalStorage(index);
+      removeHeroCard(index);
+    }
+  
+    function removeFavoriteFromLocalStorage(index) {
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      favorites.splice(index, 1);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+  
+    function removeHeroCard(index) {
+      const heroCard = document.getElementById(`hero-${index}`);
+      if (heroCard) {
         heroCard.remove();
+      }
     }
   });
   
