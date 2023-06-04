@@ -70,7 +70,7 @@ window.addEventListener('load', async () => {
             endYear, 
             modified, 
             creators, 
-        }));  
+        }));
 
         showCharacters(charactersData);
 
@@ -85,6 +85,8 @@ window.addEventListener('load', async () => {
         seriesButton.addEventListener('click', () => {
           showSeries(seriesData)
         })
+
+        favoritesButton.addEventListener('click', redirectToFavoritesPage);
     }
 
     function showCharacters(characters) {
@@ -221,5 +223,9 @@ window.addEventListener('load', async () => {
             serieDiv.appendChild(creatorsDiv);
           }
         });
-      }  
+      }
+      
+      function redirectToFavoritesPage() {
+        window.location.href = 'favorites.html';
+      }
 });

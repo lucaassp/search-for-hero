@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
   
       const heroName = document.createElement('p');
       heroName.textContent = hero.name;
-      heroName.classList.add('hero-name');
+      heroName.classList.add('hero-name-favorites');
   
       const removeIcon = document.createElement('i');
       removeIcon.classList.add('fa-solid', 'fa-minus');

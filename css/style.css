@@ -246,7 +246,7 @@ h3 {
     text-align: center;
     background-color: var(--grey-color);
     padding: 2px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 2px solid var(--light-color);
     box-shadow: 0 2px 4px rgba(72, 69, 69, 0.172);
     position: relative;
@@ -265,13 +265,14 @@ h3 {
     left: 0;
   }
   
-  .hero-name {
+  .hero-name-favorites {
     margin-top: auto;
     width: 100%;
-    font-size: 1vw; /* Ajusta o tamanho da fonte usando vw */
-    font-weight: bold;
+    height: 10%;
+    font-size: 11px;
     text-align: center;
-    padding: 1px;
+    padding: 0px;
     box-sizing: border-box;
-    color: #13ea1a
+    color: #13ea1a;
+    bottom:0;
   }
